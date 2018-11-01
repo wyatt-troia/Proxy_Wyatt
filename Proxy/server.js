@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const path = require('path');
 const axios = require('axios');
 const morgan = require('morgan');
@@ -82,8 +82,8 @@ app.get('/landmarkdata', (req, res) => {
  app.listen(port, () => {
   console.log(`server running at: http://localhost:${port}`);
  });
-
-/* MY SERVER:
+*/
+/* MY SERVER: */
 
 const express = require('express');
 const morgan = require('morgan');
@@ -175,4 +175,3 @@ app.get('/*', (req, res) => {
 app.listen(port, () => {
   console.log(`server running on port: ${port}`);
 });
-*/
