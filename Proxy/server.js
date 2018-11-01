@@ -10,7 +10,7 @@ app.use(parser.json());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/public')));
 
-// Add all API endpoints
+// Add DAVID's API endpoints
 app.get('/listingdata', (req, res) => {
   let requestId = req.query.id;
   requestId = requestId.slice(-3) * 1;
@@ -34,6 +34,43 @@ app.get('/landmarkdata', (req, res) => {
   .then((results) => res.send(results.data))
   .catch((err) => console.error(err));
 })
+
+// Add STACY's API endpoints
+app.get('/ratings', (req, res) => {
+  axios.get(`http://18.218.27.164${req.url}`)
+    .then((results) => {
+      // console.log(results.data);
+      res.send(results.data);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send();
+    });
+});
+
+app.get('/reviews', (req, res) => {
+  axios.get(`http://18.218.27.164${req.url}`)
+    .then((results) => {
+      // console.log(results.data);
+      res.send(results.data);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send();
+    });
+});
+
+app.get('/search', (req, res) => {
+  axios.get(`http://18.218.27.164${req.url}`)
+    .then((results) => {
+      // console.log(results.data);
+      res.send(results.data);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send();
+    });
+});
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
