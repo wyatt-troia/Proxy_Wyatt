@@ -90,13 +90,11 @@ app.get('/description', (req, res) => {
 });
 
 // Add Louis's API endpoints
-app.get('/bookinglisting/id:id', (req, res)=>{ 
-	id = req.params.id
-	database.getData(id).then((dataObj)=>{
-		res.status(200).send(dataObj);
-	}).catch((err)=>{
-		res.send(err)
-	})
+app.get('/bookinglisting', (req, res)=>{ 
+  let id = req.params.id
+  axios.get(`http://18.216.104.91/bookinglisting/${id}`)
+  .then((results) => res.send(results.data))
+  .catch((err) => console.error(err));
 })
 
 app.get('/*', (req, res) => {
