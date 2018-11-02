@@ -32,10 +32,9 @@ a:hover {
   float: right;
   position: absolute;
   top: 20px;
-  right: 5%x;
+  right: 5%;
 }
 
 #description {
   margin: -94.5px;
 }
-
