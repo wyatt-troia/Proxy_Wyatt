@@ -37,4 +37,6 @@ a:hover {
 
 #description {
   margin: -94.5px;
+  top: 20px;
+  bottom: 5px;
 }
