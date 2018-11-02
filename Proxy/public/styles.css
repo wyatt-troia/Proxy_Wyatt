@@ -23,8 +23,8 @@ a:hover {
 
 .container-left {
   float: left;
-  margin-left: 24px;
-  padding-left: 24px;
+  /* margin-left: 24px;
+  padding-left: 24px; */
   width: 55%;
 }
 
@@ -37,6 +37,6 @@ a:hover {
 
 #description {
   margin: -94.5px;
-  top: 20px;
-  bottom: 5px;
+  /* top: 20px;
+  bottom: 5px; */
 }
