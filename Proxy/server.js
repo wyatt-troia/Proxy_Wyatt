@@ -92,13 +92,13 @@ app.get('/description', (req, res) => {
 // Add Louis's API endpoints
 app.get('/bookinglisting/:id', (req, res)=>{ 
   let id = req.params.id
-  console.log('id for louis looks like', id);
   axios.get(`http://18.216.104.91/bookinglisting/${id}`)
   .then((results) => {
-    console.log('louis results are: ', results.data)
     res.send(results.data)
   })
-  .catch((err) => console.error(err));
+  .catch((err) => {
+    console.error(err)
+  });
 })
 
 app.get('/*', (req, res) => {
