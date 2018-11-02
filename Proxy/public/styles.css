@@ -21,12 +21,12 @@ a:hover {
   text-decoration: underline;
 }
 
-/* .container-left {
-  /* float: left; */
-  /* margin-left: 24px;
-  padding-left: 24px; */
-  /* width: 55%; */
-} */
+.container-left {
+  float: left;
+  margin-left: 24px;
+  padding-left: 24px;
+  width: 55%;
+}
 
 .container-right {
   float: right;
@@ -35,8 +35,8 @@ a:hover {
   right: 5%;
 }
 
-/* #description {
+#description {
   margin: -94.5px;
   /* top: 20px;
   bottom: 5px; */
-} */
+}
