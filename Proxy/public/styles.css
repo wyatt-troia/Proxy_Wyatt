@@ -22,9 +22,8 @@ a:hover {
 }
 
 .container-left {
-  margin-left: 0px;
+  margin-left: 24px;
   padding-left: 24px;
-  margin-right: -8px;
   width: 664px;
 }
 
