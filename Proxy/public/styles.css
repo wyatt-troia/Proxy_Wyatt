@@ -32,7 +32,8 @@ a:hover {
   float: right;
   position: absolute;
   top: 20px;
-  right: 5%;
+  right: 5px;
+  width: 100px;
 }
 
 #description {
