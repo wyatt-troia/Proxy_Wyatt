@@ -90,7 +90,7 @@ app.get('/description', (req, res) => {
 });
 
 // Add Louis's API endpoints
-app.get('/bookinglisting', (req, res)=>{ 
+app.get('/bookinglisting/:id', (req, res)=>{ 
   let id = req.params.id
   console.log('id for louis looks like', id);
   axios.get(`http://18.216.104.91/bookinglisting/${id}`)
