@@ -90,10 +90,14 @@ app.get('/description', (req, res) => {
 });
 
 // Add Louis's API endpoints
-
-app.get('/listing', (req, res)=>{
-  res.sendFile(path.join(__dirname + '/public/index.html'))
-});
+app.get('/bookinglisting/id:id', (req, res)=>{ 
+	id = req.params.id
+	database.getData(id).then((dataObj)=>{
+		res.status(200).send(dataObj);
+	}).catch((err)=>{
+		res.send(err)
+	})
+})
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
