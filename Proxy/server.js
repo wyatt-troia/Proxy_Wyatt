@@ -44,7 +44,7 @@ app.get('/landmarkdata', (req, res) => {
 app.get('/ratings', (req, res) => {
   axios.get(`http://18.218.27.164${req.url}`)
     .then((results) => {
-      console.log(results.data);
+      // console.log(results.data);
       res.send(results.data);
     })
     .catch((err) => {
@@ -56,7 +56,7 @@ app.get('/ratings', (req, res) => {
 app.get('/reviews', (req, res) => {
   axios.get(`http://18.218.27.164${req.url}`)
     .then((results) => {
-      console.log(results.data);
+      // console.log(results.data);
       res.send(results.data);
     })
     .catch((err) => {
@@ -68,7 +68,7 @@ app.get('/reviews', (req, res) => {
 app.get('/search', (req, res) => {
   axios.get(`http://18.218.27.164${req.url}`)
     .then((results) => {
-      console.log(results.data);
+      // console.log(results.data);
       res.send(results.data);
     })
     .catch((err) => {
@@ -76,6 +76,20 @@ app.get('/search', (req, res) => {
       res.send();
     });
 });
+
+// Add Dev's API endpoints
+app.get('/description', (req, res) => {
+  axios.get(`http://52.14.238.117${req.url}`)
+    .then((results) => {
+      res.send(results.data);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send();
+    });
+});
+
+// Add Louis's API endpoints
 
 app.get('/listing', (req, res)=>{
   res.sendFile(path.join(__dirname + '/public/index.html'))
