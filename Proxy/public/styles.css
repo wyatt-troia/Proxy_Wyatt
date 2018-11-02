@@ -22,7 +22,7 @@ a:hover {
 }
 
 .container-left {
-  margin-left: 94.5px;
+  margin-left: 0px;
   padding-left: 24px;
   margin-right: -8px;
   width: 664px;
@@ -31,6 +31,6 @@ a:hover {
 .container-right {
   margin-left: 688px;
   position: absolute;
-  padding-left: 24px;
-  margin-right: -8px;
+  top: 20px;
+  right: 20px;
 }
