@@ -30,8 +30,8 @@ a:hover {
 
 .container-right {
   float: right;
-  position: absolute;
-  left: 720px;
+  position: fixed;
+  left: 740px;
   top: 20px;
   right: 5%;
 }
