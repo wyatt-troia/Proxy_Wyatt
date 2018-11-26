@@ -1,0 +1,18 @@
+config:
+  target: "http://localhost:3100"
+  phases:
+    - duration: 600
+      arrivalRate: 300
+  processor: "./randomNumber.js"
+scenarios:
+  - flow:
+      - function: "randomNumber"
+      - get:
+          url: "/"
+          # url: "/bookinglisting/?id={{ id }}"
+      # - post:
+      #     url: "/bookinglisting"
+      #     json:
+      #       price: 999
+      #       maxguests: 4
+      #       minstay: 5
