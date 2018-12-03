@@ -28,11 +28,23 @@ const ssr = async id => {
 app.get("/listings", async (req, res) => {
   let id = req.query.id;
 
-  let results = await axios(`${urls.bookings.ssr}?id=${id}`);
-  let { ssr_html: booking_html, props: booking_props } = results.data;
+  let results = await Promise.all([
+    axios(`${urls.bookings.ssr}?id=${id}`),
+    axios(`${urls.description.ssr}?id=${id}`),
+    axios(`${urls.reviews.ssr}?id=${id}`),
+    axios(`${urls.neighborhood.ssr}?id=${id}`)
+  ]);
 
-  let results2 = await axios(`${urls.description.ssr}?id=${id}`);
-  let { ssr_html: description_html, props: description_props } = results2.data;
+  let { ssr_html: booking_html, props: booking_props } = results[0].data;
+  let {
+    ssr_html: description_html,
+    props: description_props
+  } = results[1].data;
+  let { ssr_html: reviews_html, props: reviews_props } = results[2].data;
+  let {
+    ssr_html: neighborhood_html,
+    props: neighborhood_props
+  } = results[3].data;
 
   res.send(`<!DOCTYPE html>
   <html lang="en">
@@ -58,19 +70,21 @@ app.get("/listings", async (req, res) => {
       />
       <link type="text/css" rel="stylesheet" href="styles.css" />
 
+      <!-- Neighborhood stylesheet -->
       <link
-        rel="stylesheet"
-        type="text/css"
-        href="http://ec2co-ecsel-14mqx2j7r6mip-726135605.us-east-2.elb.amazonaws.com:9005/guestBar.css"
+      rel="stylesheet"
+      type="text/css"
+      href="http://ec2co-ecsel-1r1awabnkqgzv-347745579.us-east-2.elb.amazonaws.com:8001/style.css"
       />
   
       <link rel="icon" type="image/png" href="/favicon.png" />
     </head>
     <body>
-      <div id="description">${description_html}</div>
+      
       <div class="container-left">
-        <div id="reviews"></div>
-        <div id="neighborhood"></div>
+        <div id="description">${description_html}</div>
+        <div id="reviews">${reviews_html}</div>
+        <div id="neighborhood">${neighborhood_html}</div>
       </div>
       <div class="container-right"><div id="booking">${booking_html}</div></div>
       <script
@@ -91,27 +105,42 @@ app.get("/listings", async (req, res) => {
         );
       </script>
 
-      <!-- Louis's bundle -->
-      <!-- <script src="${urls.bookings.bundle}"></script> -->
+      <!-- Reviews -->
+      <script src="${urls.reviews.bundle}"></script>
+      <script>
+        ReactDOM.hydrate(
+          React.createElement(Reviews, ${reviews_props}),
+          document.getElementById('reviews')
+        );
+      </script>
 
       <!-- Booking -->
-      <script type="text/javascript" src="https://s3.amazonaws.com/topbunk/bundle.js"></script>
+      <script type="text/javascript" src="${urls.bookings.bundle}"></script>
       <script>
         ReactDOM.hydrate(
           React.createElement(Booking, ${JSON.stringify(booking_props)}),
           document.getElementById('booking')
         );
       </script>
+
+      <!-- Neighborhood -->
+      <script type="text/javascript" src="${urls.neighborhood.bundle}"></script>
+      <script>
+        ReactDOM.hydrate(
+          React.createElement(Neighborhood, ${undefined}),
+          document.getElementById('neighborhood')
+        );
+      </script>
     </body>
   </html>`);
 });
 
-// Add DAVID's API endpoints
+// Neighborhood endpoints
 app.get("/listingdata", (req, res) => {
   let requestId = req.query.id;
   requestId = requestId.slice(-3) * 1;
   axios
-    .get(`http://3.16.89.66/listingdata?id=${requestId}`)
+    .get(`${urls.neighborhood.ssr}/listingdata?id=${requestId}`)
     .then(results => res.send(results.data))
     .catch(err => console.error(err));
 });
@@ -120,7 +149,7 @@ app.get("/neighborhooddata", (req, res) => {
   let requestId = req.query.id;
   requestId = requestId.slice(-3) * 1;
   axios
-    .get(`http://3.16.89.66/neighborhooddata?id=${requestId}`)
+    .get(`${urls.neighborhood.ssr}/neighborhooddata?id=${requestId}`)
     .then(results => res.send(results.data))
     .catch(err => console.error(err));
 });
@@ -129,17 +158,24 @@ app.get("/landmarkdata", (req, res) => {
   let lat = req.query.listingLat;
   let long = req.query.listingLong;
   axios
-    .get(`http://3.16.89.66/landmarkdata?listingLat=${lat}&listingLong=${long}`)
+    .get(
+      `${
+        urls.neighborhood.ssr
+      }/landmarkdata?listingLat=${lat}&listingLong=${long}`
+    )
     .then(results => res.send(results.data))
     .catch(err => console.error(err));
 });
 
-// Add STACY's API endpoints
+// Reviews endpoints
 app.get("/ratings", (req, res) => {
   axios
-    .get(`http://18.218.27.164${req.url}`)
+    .get(
+      `http://ec2co-ecsel-1r1awabnkqgzv-347745579.us-east-2.elb.amazonaws.com:8001${
+        req.url
+      }`
+    )
     .then(results => {
-      // console.log(results.data);
       res.send(results.data);
     })
     .catch(err => {
@@ -150,9 +186,12 @@ app.get("/ratings", (req, res) => {
 
 app.get("/reviews", (req, res) => {
   axios
-    .get(`http://18.218.27.164${req.url}`)
+    .get(
+      `http://ec2co-ecsel-1r1awabnkqgzv-347745579.us-east-2.elb.amazonaws.com:8001${
+        req.url
+      }`
+    )
     .then(results => {
-      // console.log(results.data);
       res.send(results.data);
     })
     .catch(err => {
@@ -163,7 +202,11 @@ app.get("/reviews", (req, res) => {
 
 app.get("/search", (req, res) => {
   axios
-    .get(`http://18.218.27.164${req.url}`)
+    .get(
+      `http://ec2co-ecsel-1r1awabnkqgzv-347745579.us-east-2.elb.amazonaws.com:8001${
+        req.url
+      }`
+    )
     .then(results => {
       // console.log(results.data);
       res.send(results.data);
