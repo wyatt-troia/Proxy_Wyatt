@@ -27,9 +27,12 @@ const ssr = async id => {
 
 app.get("/listings", async (req, res) => {
   let id = req.query.id;
-  console.log(`${urls.bookings.ssr}?id=${id}`);
+
   let results = await axios(`${urls.bookings.ssr}?id=${id}`);
   let { ssr_html: booking_html, props: booking_props } = results.data;
+
+  let results2 = await axios(`${urls.description.ssr}?id=${id}`);
+  let { ssr_html: description_html, props: description_props } = results2.data;
 
   res.send(`<!DOCTYPE html>
   <html lang="en">
@@ -54,16 +57,22 @@ app.get("/listings", async (req, res) => {
         href="http://ec2co-ecsel-14mqx2j7r6mip-726135605.us-east-2.elb.amazonaws.com:9005/flexboxgrid2.css"
       />
       <link type="text/css" rel="stylesheet" href="styles.css" />
+
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="http://ec2co-ecsel-14mqx2j7r6mip-726135605.us-east-2.elb.amazonaws.com:9005/guestBar.css"
+      />
   
       <link rel="icon" type="image/png" href="/favicon.png" />
     </head>
     <body>
-      <div id="description"></div>
+      <div id="description">${description_html}</div>
       <div class="container-left">
         <div id="reviews"></div>
         <div id="neighborhood"></div>
       </div>
-      <div class="container-right">${booking_html}<div id="booking"></div></div>
+      <div class="container-right"><div id="booking">${booking_html}</div></div>
       <script
         crossorigin
         src="https://unpkg.com/react@16/umd/react.development.js"
@@ -72,21 +81,27 @@ app.get("/listings", async (req, res) => {
         crossorigin
         src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
       ></script>
-      <!-- <script src="http://3.16.89.66/app.js"></script> -->
-      <!-- Dev's bundle -->
-      <!-- <script src="http://52.14.238.117/bundle.js"></script> -->
+
+      <!-- Description -->
+      <script src="${urls.description.bundle}"></script>
+      <script>
+        ReactDOM.hydrate(
+          React.createElement(Description, ${description_props}),
+          document.getElementById('description')
+        );
+      </script>
+
       <!-- Louis's bundle -->
       <!-- <script src="${urls.bookings.bundle}"></script> -->
-      <!-- Stacy's bundle -->
-      <!--
-        <script src="http://18.218.27.164/bundle.js"></script>
-        <script>
-          ReactDOM.render(
-            React.createElement(Neighborhood),
-            document.getElementById('neighborhood')
-          );
-        </script>
-      -->
+
+      <!-- Booking -->
+      <script type="text/javascript" src="https://s3.amazonaws.com/topbunk/bundle.js"></script>
+      <script>
+        ReactDOM.hydrate(
+          React.createElement(Booking, ${JSON.stringify(booking_props)}),
+          document.getElementById('booking')
+        );
+      </script>
     </body>
   </html>`);
 });
