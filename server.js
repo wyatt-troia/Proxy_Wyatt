@@ -80,13 +80,15 @@ app.get("/listings", async (req, res) => {
       <link rel="icon" type="image/png" href="/favicon.png" />
     </head>
     <body>
-      
-      <div class="container-left">
-        <div id="description">${description_html}</div>
-        <div id="reviews">${reviews_html}</div>
-        <div id="neighborhood">${neighborhood_html}</div>
+      <div class="mega-container">
+          <div class="container-left">
+          <div id="description">${description_html}</div>
+          <div id="reviews">${reviews_html}</div>
+          <div id="neighborhood">${neighborhood_html}</div>
+        </div>
+        <div class="container-right"><div id="booking">${booking_html}</div></div>
       </div>
-      <div class="container-right"><div id="booking">${booking_html}</div></div>
+
       <script
         crossorigin
         src="https://unpkg.com/react@16/umd/react.development.js"

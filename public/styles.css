@@ -8,6 +8,11 @@ body {
   background-color: #fff;
 }
 
+.mega-container {
+  margin: auto;
+  width: 80%;
+}
+
 a {
   color: #008489;
   font-weight: bold;
@@ -23,20 +28,18 @@ a:hover {
 
 .container-left {
   float: left;
-  padding-left: 24px;
-  width: 48%;
+  width: 58.3%;
 }
 
 .container-right {
   float: right;
   position: fixed;
-  left: 760px;
-  top: 20px;
-  right: 5%;
+  /* left: 760px; */
+  right: 12.5%;
+  top: 24px;
 }
 
 #description {
-  /* margin-left: -94.5px; */
   margin-top: 20px;
   margin-bottom: 5px;
 }
