@@ -5,7 +5,7 @@ TopBunk is a full-stack web application that provides descriptions, reviews, and
 - [Reviews](https://github.com/TopBunkNYC/Reviews)
 - [About the Neighborhood](https://github.com/TopBunkNYC/Neighborhood)
 
-The GIF below provide a tour of the deployed proxy server, which brings together the description, booking, reviews, and about-the-neighborhood services into a unified application. To visit the deployed booking service, go **[here](http://18.218.35.42/listings?id=92921)**.
+The GIF below provide a tour of the deployed proxy server, which brings together the description, booking, reviews, and about-the-neighborhood services into a unified application. 
 
 <img src="https://imgur.com/XqY7aWR.gif" >
 
