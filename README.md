@@ -17,6 +17,6 @@ First, start up all four services by following the setup instructions at their r
 npm install
 npm run start-dev
 ```
-Be sure to update the URLs in the server.js file as needed.
+Be sure to update the URLs in `server.js` as needed.
 
 Then navigate to [http://localhost:9000](http://localhost:3001).
